@@ -43,11 +43,33 @@ function freelancersForumInit(){
                       `
 }
 
-function newFreelance(){
-  let selectedTable = document.getElementsByTag("table")
-  let selectedRow = selectedTable.createElement("tr")
-  selected.innerHTML = `Hello`
+function renderFreelance(){
+  for (let i = 0; i < freelanceArr.length; i++){
+    let selectedTable = document.querySelector("table")
+    selectedTable.style.display = "flex"
+    selectedTable.style.justifyContent = "center"
+    let selectedRow = selectedTable.insertRow(-1)
+    selectedRow.style.fontSize = ".75em"
+    selectedRow.innerHTML = `<td>${freelanceArr[i].name}</td>
+                            <td>${freelanceArr[i].occupation}</td>
+                            <td>${freelanceArr[i].price}</td>`
+  }
+}
+
+function addRow(newName, newOccupation, newPrice){
+  freelanceArr.push({name: newName, occupation: newOccupation, price: newPrice})
+  let selectedTable = document.querySelector("table")
+  let selectedRow = selectedTable.insertRow(-1)
+  selectedRow.style.fontSize = ".75em"
+  selectedRow.innerHTML = `<td>${newName}</td>
+                            <td>${newOccupation}</td>
+                            <td>${newPrice}</td>`
+  getAvg()
 }
 
 freelancersForumInit()
-newFreelance()
+renderFreelance()
+setInterval(() => {
+  addRow("Kaden", "Web Dev", Math.floor(Math.random() * 50))
+  getAvg()
+}, 3000)
